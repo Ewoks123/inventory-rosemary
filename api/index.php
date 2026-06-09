@@ -29,6 +29,13 @@ putenv('APP_SERVICES_CACHE=/tmp/services.php');
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 $_SERVER['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 
+// Set APP_URL dinamis sesuai domain Vercel
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $_ENV['APP_URL'] = $scheme . '://' . $_SERVER['HTTP_HOST'];
+    putenv('APP_URL=' . $_ENV['APP_URL']);
+}
+
 define('LARAVEL_START', microtime(true));
 
 // Register the Composer autoloader
