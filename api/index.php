@@ -8,7 +8,6 @@ $storageDirs = [
     '/tmp/storage/framework/cache/data',
     '/tmp/storage/framework/sessions',
     '/tmp/storage/logs',
-    '/tmp/bootstrap/cache',
 ];
 
 foreach ($storageDirs as $dir) {
