@@ -29,11 +29,13 @@ putenv('APP_SERVICES_CACHE=/tmp/services.php');
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 $_SERVER['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 
-// Set APP_URL dinamis sesuai domain Vercel
+// Set APP_URL dinamis sesuai domain Vercel (gunakan x-forwarded-proto untuk HTTPS)
 if (!empty($_SERVER['HTTP_HOST'])) {
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $_ENV['APP_URL'] = $scheme . '://' . $_SERVER['HTTP_HOST'];
+    $proto = $_SERVER['HTTP_X_FORWARDED_PROTO']
+        ?? ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'https');
+    $_ENV['APP_URL'] = $proto . '://' . $_SERVER['HTTP_HOST'];
     putenv('APP_URL=' . $_ENV['APP_URL']);
+    $_SERVER['HTTPS'] = 'on';
 }
 
 define('LARAVEL_START', microtime(true));
