@@ -136,18 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (confirm("Apakah Anda yakin ingin keluar?")) {
                     localStorage.removeItem("isLoggedIn");
                     localStorage.removeItem("user");
-                    
-                    // Trigger Laravel logout
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '/admin/logout';
-                    const token = document.createElement('input');
-                    token.type = 'hidden';
-                    token.name = '_token';
-                    token.value = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                    form.appendChild(token);
-                    document.body.appendChild(form);
-                    form.submit();
+                    document.getElementById('sidebar-logout-form')?.submit();
                 }
             });
         }
