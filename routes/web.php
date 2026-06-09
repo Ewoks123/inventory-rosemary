@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.login');
 });
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
