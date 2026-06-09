@@ -1,31 +1,26 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
+     * Menggunakan raw SQL PostgreSQL (kompatibel tanpa doctrine/dbal)
      */
     public function up()
     {
-        DB::statement('ALTER TABLE produksis MODIFY id_material BIGINT UNSIGNED NULL');
-        DB::statement('ALTER TABLE produksis MODIFY material_digunakan INT NULL');
+        DB::statement('ALTER TABLE produksis ALTER COLUMN id_material DROP NOT NULL');
+        DB::statement('ALTER TABLE produksis ALTER COLUMN material_digunakan DROP NOT NULL');
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        DB::statement('ALTER TABLE produksis MODIFY id_material BIGINT UNSIGNED NOT NULL');
-        DB::statement('ALTER TABLE produksis MODIFY material_digunakan INT NOT NULL');
+        DB::statement('ALTER TABLE produksis ALTER COLUMN id_material SET NOT NULL');
+        DB::statement('ALTER TABLE produksis ALTER COLUMN material_digunakan SET NOT NULL');
     }
 };
